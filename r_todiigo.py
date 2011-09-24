@@ -2,7 +2,6 @@
 import reddit
 import pydiigo
 import optparse
-import sys
 
 def transfer_links(ruser, rpass, duser, dpass, limit, unsave, verbose=True):
     d = pydiigo.DiigoApi(user=duser, password=dpass, debug=True)
@@ -37,8 +36,4 @@ if __name__ == "__main__":
         help="Move and delete from Reddit saves")
 
     (options, args) = parser.parse_args()
-
-    print options
-    sys.exit() 
-
     transfer_links(options.ruser, options.rpass, options.duser, options.dpass, options.limit, options.unsave)
