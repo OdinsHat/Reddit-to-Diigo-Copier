@@ -6,7 +6,7 @@ import sys
 
 def transfer_links(ruser, rpass, duser, dpass, limit, unsave, verbose=True):
     d = pydiigo.DiigoApi(user=duser, password=dpass, debug=True)
-    r = reddit.Reddit(user_agent="Ashiro Saved Exporter")
+    r = reddit.Reddit(user_agent="Reddit to Diigo Copier")
     r.login(user=ruser, password=rpass)
     r_saves = r.get_saved_links(limit)
 
