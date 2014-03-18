@@ -1,28 +1,7 @@
 # -*- coding: utf8 -*-
-import praw
-import pydiigo
+from reddittodiigo import RedditSaves
+from reddittodiigo import DiigoSaver
 import optparse
-
-def transfer_links(ruser, rpass, duser, dpass, limit, unsave, apikey="f299650f020c5a7a", verbose=True):
-    d = pydiigo.DiigoApi(user=duser, password=dpass, apikey=apikey)
-    r = praw.Reddit(user_agent="Reddit to Diigo Copier")
-    r.login(ruser, rpass)
-    r_saves = r.user.get_saved(limit)
-
-    for r_save in r_saves:
-        res = d.bookmark_add(
-            title=r_save.title.encode('utf-8'), 
-            description=r_save.selftext[:249].encode('utf-8'), 
-            url=r_save.url, 
-            shared="no", 
-            tags=r_save.subreddit.display_name
-        )
-        
-        if unsave:
-            r_save.unsave()
-
-        if verbose:
-            print res
 
 if __name__ == "__main__":
     parser = optparse.OptionParser()
@@ -36,4 +15,8 @@ if __name__ == "__main__":
         help="Move and delete from Reddit saves")
 
     (options, args) = parser.parse_args()
-    transfer_links(options.ruser, options.rpass, options.duser, options.dpass, options.limit, options.unsave)
+
+    r = RedditSaves(options.ruser, options.rpass)
+    d = DiigoSaver(options.duser, options.dpass)
+
+    d.save_to_diigo(r.get_saved())
