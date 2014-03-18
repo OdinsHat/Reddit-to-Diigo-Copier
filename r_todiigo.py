@@ -1,13 +1,13 @@
 # -*- coding: utf8 -*-
-import reddit
+import praw
 import pydiigo
 import optparse
 
-def transfer_links(ruser, rpass, duser, dpass, limit, unsave, verbose=True):
-    d = pydiigo.DiigoApi(user=duser, password=dpass, debug=True)
-    r = reddit.Reddit(user_agent="Reddit to Diigo Copier")
-    r.login(user=ruser, password=rpass)
-    r_saves = r.get_saved_links(limit)
+def transfer_links(ruser, rpass, duser, dpass, limit, unsave, apikey="f299650f020c5a7a", verbose=True):
+    d = pydiigo.DiigoApi(user=duser, password=dpass, apikey=apikey)
+    r = praw.Reddit(user_agent="Reddit to Diigo Copier")
+    r.login(ruser, rpass)
+    r_saves = r.user.get_saved(limit)
 
     for r_save in r_saves:
         res = d.bookmark_add(
