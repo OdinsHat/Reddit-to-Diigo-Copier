@@ -1,5 +1,6 @@
 import praw
 import pydiigo
+import sys
 
 class RedditSaves:
     def __init__(self, username, password):
@@ -9,7 +10,15 @@ class RedditSaves:
         self.limit = 10
         self.unsave = False
 
-        self.red.login(username, password)
+        try:
+            self.red.login(username, password)
+        except praw.errors.InvalidUserPass:
+            print('Incorrect Reddit credentials')
+            sys.exit(-1)
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            raise
+
 
     def get_saved(self):
         reddit_saved_links = []
