@@ -1,4 +1,4 @@
-#/!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf8 -*-
 from reddittodiigo import RedditSaves
 from reddittodiigo import DiigoSaver
