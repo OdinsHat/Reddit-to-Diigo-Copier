@@ -1,3 +1,10 @@
+"""Module for copying Reddit saved links to Diigo"""
+
+__author__ = "Doug Bromley"
+__copyright__ = "Doug Bromley"
+__licese__ = "BSD"
+__email__ = "Doug@tintophat.com"
+
 import praw
 import pydiigo
 import sys
